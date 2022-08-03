@@ -9,6 +9,7 @@ import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
 import numpy as np
+import matplotlib.pylab as plt
 
 def showImage(X, Y, Z, x, y):
     pass
@@ -16,7 +17,7 @@ def showImage(X, Y, Z, x, y):
 def main():
    n = 96
    gratterDiagonal = np.ones(n)
-   b = np.zeros(n) # solution
+   b = np.ones(n,dtype=float) # solution
    
    # Creating the diagonals
    d0 = 20*gratterDiagonal
@@ -64,12 +65,48 @@ def main():
    d13[71] = 0
     # colum 12 (12, 24, 36, 48, 60, 72, 84, 96) for the lefts
    d11[0] = d11[12] = d11[0] = 0
-   d24[] = 
+   #d24[] = 
 
    # Creating matrix A
-   A = scipy.sparse.daigs([d0, d1, d2, ])
+   A = scipy.sparse.diags([d0, d1, d2,d11, d12, d13, d24, d1, d2,d11, d12, d13, d24 ],[0,1,2,11,12,13,24,-1,-2,-11,-12,-13,-24])
 
-   print(d13.shape)
+   print(A)
+
+   theta = scipy.sparse.linalg.spsolve(A,b)
+   print(theta)
+   
+   # surfaceplot:
+
+   x = np.linspace(0, 1, 5)
+   y = np.linspace(0, 1.5, 7)
+   X, Y = np.meshgrid(x, y)
+   T = np.zeros_like(X)
+   T[-1,:] = 1
+   for n in range(1,13):
+    T[n,1] = theta[n-1]
+    T[n,2] = theta[n+5-1]
+    T[n,3] = theta[n+10-1]
+        
+   from matplotlib import cm
+   from matplotlib.ticker import LinearLocator, FormatStrFormatter
+
+   fig = plt.figure()
+   ax = fig.gca(projection='3d')
+   surf = ax.plot_surface(X, Y, T, rstride=1, cstride=1, cmap=cm.coolwarm,
+                        linewidth=0, antialiased=False)
+   ax.set_zlim(0, 110)
+
+   ax.zaxis.set_major_locator(LinearLocator(10))
+   ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+   ax.set_xlabel('x')
+   ax.set_ylabel('y')
+   ax.set_zlabel('z')
+   ax.set_xticks(x)
+   ax.set_yticks(y)
+
+   fig.colorbar(surf, shrink=0.5, aspect=5)
+   plt.show()
+
 
 if __name__=="__main__":
     main()
