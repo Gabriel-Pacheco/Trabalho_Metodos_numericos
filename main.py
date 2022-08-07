@@ -72,7 +72,7 @@ def main():
    A = scipy.sparse.diags([d0, d1, d2,d11, d12, d13, d24, d1, d2,d11, d12, d13, d24 ],[0,1,2,11,12,13,24,-1,-2,-11,-12,-13,-24])
 
    print(np.shape(A))
-   print(d0)
+   print(A.toarray())
 
    theta = scipy.sparse.linalg.spsolve(A,b)
    print(theta)
