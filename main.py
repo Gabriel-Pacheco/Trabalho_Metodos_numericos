@@ -12,30 +12,27 @@ import numpy as np
 
 def saveMatrixExcel(matrix, local): # o local deve ser o local onde vc deseja salvar junto com o nome que vc deseja para o arquivo. Antes do 'C:...' deve ter a letra 'r', Ex: r'C:\Users\patri\Desktop\TrabAlg.xlsx'
     import pandas as pd
-    #matrix=matrix.toarray()
+    matrix=matrix.toarray()
     df=pd.DataFrame(matrix)
-    df.to_excel(local, sheet_name="df")
+    df.to_csv(local, sheet_name="df")
 
 def showImage(theta):
    import matplotlib.pylab as plt
    from matplotlib import cm
    from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
-   xmax = 2
-   ymax = 1
+   xmax = 1
+   ymax = 2
    
-   Nx = 20
+   Nx = 12
    h=xmax/Nx
    Ny = int(ymax/h)
    # surfaceplot:
    x = np.linspace(0, xmax, Nx + 1)
    y = np.linspace(0, ymax, Ny + 1)
    X, Y = np.meshgrid(x, y)
-   W = np.zeros_like(X)
 
-   for j in range(1,Ny):
-    for i in range(1, Nx):
-        W[j, i] = theta[i]
+   W = np.resize(theta,new_shape=(25, 13))
    
    # set the imposed boudary values
    W[-1,:] = 1
@@ -71,7 +68,6 @@ def showImage(theta):
    plt.pcolormesh(X, Y, W)
    plt.colorbar()
    
-   saveMatrixExcel(W, r'C:\Users\patri\Desktop\TrabAlg.xlsx',)
    plt.show()
 
 def createMatrix(n):
@@ -94,7 +90,7 @@ def createMatrix(n):
 
     for i in range(1,11):
      d0[i] = 19 # em cima
-     d0[i+84] =19 # em baixo
+     d0[i+84] = 19 # em baixo
 
     for i in range(1,7):
      d0[i*12] = 19 # esquerda
@@ -107,7 +103,13 @@ def createMatrix(n):
      d11[i*12] = 0
      d13[i*11] = 0
     d11[0]=0
+
     d24 = np.ones(len(d24))
+    for i in range(1,13):
+        d24[-i-12]=0  
+        d24[-i]=0        
+        
+    print(len(d24))
 
     # Creating matrix A
     A = scipy.sparse.diags([d0, d1, d2,d11, d12, d13, d24, d1, d2, d11, d12, d13, d24 ],[0,1,2,11,12,13,24,-1,-2,-11,-12,-13,-24])
