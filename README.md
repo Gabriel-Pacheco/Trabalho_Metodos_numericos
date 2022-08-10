@@ -3,6 +3,11 @@ Modelar a temperatura de uma placa que possui 96 pontos internos, sendo 8 linhas
 
 Imagem dos pontos da placa:
 <div align="center">
+<img src="https://user-images.githubusercontent.com/80834810/184041542-c54dc2a0-117c-4efd-b845-e78e8a1f1836.png" width="500px" />
+</div>
+
+Pontos da placa para localização na criação da matriz de pesos:
+<div align="center">
 <img src="https://user-images.githubusercontent.com/80834810/181617191-cf41f3a4-a91a-448b-814d-1944001ce0ec.png" width="500px" />
 </div>
 
