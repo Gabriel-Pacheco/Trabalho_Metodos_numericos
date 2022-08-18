@@ -26,9 +26,6 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     y = np.arange(0.0, 1.0*NumColsPlaca, 1.0)
     X, Y = np.meshgrid(x, y)
 
-    #print(X)
-    #print(Y)
-
     Z = np.zeros_like(X)
     ind = 0
     for lin in range (0,NumLinsPlaca):
@@ -47,6 +44,12 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     ax.set_zlabel('z', labelpad=20)
 
     fig.colorbar(surf, shrink=0.5, aspect=8)
+
+    # Plot 2D
+    plt.figure()
+    plt.pcolormesh(X, Y, Z)
+    plt.colorbar()
+
     plt.show()
 
 def LinColPlaca_NumNohMatriz(NumNoh, NCols):
