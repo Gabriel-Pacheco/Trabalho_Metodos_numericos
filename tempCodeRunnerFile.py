@@ -1,1 +1,1 @@
-, shrink=0.5, aspect=8
+M
