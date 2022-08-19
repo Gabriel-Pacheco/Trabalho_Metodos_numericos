@@ -26,9 +26,6 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     y = np.arange(0.0, 1.0*NumColsPlaca, 1.0)
     X, Y = np.meshgrid(x, y)
 
-    #print(X)
-    #print(Y)
-
     Z = np.zeros_like(X)
     ind = 0
     for lin in range (0,NumLinsPlaca):
@@ -47,20 +44,13 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     ax.set_zlabel('z', labelpad=20)
 
     fig.colorbar(surf, shrink=0.5, aspect=8)
+
+    # Plot 2D
+    fig2D = plt.figure(figsize = (12,10))
+    ax1 = plt.contourf(X, Y, Z, cmap=plt.cm.cividis)
+    fig2D.colorbar(surf)
+
     plt.show()
-
-def LinColPlaca_NumNohMatriz(NumNoh, NCols):
-    #Placa começa em [1,1] e vair até [NLins,NCols]
-    #NumNoh vai de 1 até NLins * NCols
-    Lin = ((NumNoh-1)// NCols) + 1
-    Col = ((NumNoh-1) % NCols) + 1
-    return(Lin,Col)
-
-def LinhaM_LinColPlaca(Lin, Col, NCols):
-    #Placa começa em [0,0] e vair até [NLins-1,NCols-1]
-    #NumNoh vai de 0 até (NLins * NCols - 1)
-    NumNoh = NCols * Lin + (Col)
-    return(NumNoh)
 
 def Solving(A,b):
     return scipy.linalg.solve(A,b)
@@ -73,12 +63,12 @@ def main():
     n = NLinsPlaca * NColsPlaca
     b = np.ones(n) #vetor-mae para o lado direito (RHS)
 
-    #Q1 = createMatrixSimplesmenteApoiado(n, NLinsPlaca, NColsPlaca)
-    #Q1 = -Q1 # Para o gráfico ficar invertido
-    Q2 = createMatrixEngastado(n, NLinsPlaca, NColsPlaca)
-    Q2 = -Q2 # Para o gráfico ficar invertido
+    Q1 = createMatrixSimplesmenteApoiado(n, NLinsPlaca, NColsPlaca)
+    Q1 = -Q1 # Para o gráfico ficar invertido
+    #Q2 = createMatrixEngastado(n, NLinsPlaca, NColsPlaca)
+    #Q2 = -Q2 # Para o gráfico ficar invertido
 
-    solucao = Solving(Q2, b)  
+    solucao = Solving(Q1, b)  
 
     showImage(solucao, NLinsPlaca, NColsPlaca)
 
