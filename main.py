@@ -26,9 +26,6 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     y = np.arange(0.0, 1.0*NumColsPlaca, 1.0)
     X, Y = np.meshgrid(x, y)
 
-    #print(X)
-    #print(Y)
-
     Z = np.zeros_like(X)
     ind = 0
     for lin in range (0,NumLinsPlaca):
@@ -46,21 +43,10 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     ax.set_ylabel('y', labelpad=20)
     ax.set_zlabel('z', labelpad=20)
 
+
+
     fig.colorbar(surf, shrink=0.5, aspect=8)
     plt.show()
-
-def LinColPlaca_NumNohMatriz(NumNoh, NCols):
-    #Placa começa em [1,1] e vair até [NLins,NCols]
-    #NumNoh vai de 1 até NLins * NCols
-    Lin = ((NumNoh-1)// NCols) + 1
-    Col = ((NumNoh-1) % NCols) + 1
-    return(Lin,Col)
-
-def LinhaM_LinColPlaca(Lin, Col, NCols):
-    #Placa começa em [0,0] e vair até [NLins-1,NCols-1]
-    #NumNoh vai de 0 até (NLins * NCols - 1)
-    NumNoh = NCols * Lin + (Col)
-    return(NumNoh)
 
 def Solving(A,b):
     return scipy.linalg.solve(A,b)
@@ -82,10 +68,10 @@ def main():
     solucaoApoiado = Solving(Q1, b)  
     solucaoEngastado = Solving(Q2, b)  
     
-    #showImage(solucaoApoiado, NLinsPlaca, NColsPlaca)
-    #showImage(solucaoEngastado, NLinsPlaca, NColsPlaca)
+    showImage(solucaoApoiado, NLinsPlaca, NColsPlaca)
+    showImage(solucaoEngastado, NLinsPlaca, NColsPlaca)
 
-    #saveMatrixExcel(solucaoApoiado, r'C:\Users\patri\Desktop\RespostaSimplesmenteApoiado.xlsx')
+    #saveMatrixExcel(solucaoApoiado, r'C:\Users\patri\Desktop\teste.xlsx')
     #saveMatrixExcel(solucaoEngastado, r'C:\Users\patri\Desktop\RespostaEngastado.xlsx')
 
 if __name__=="__main__":
