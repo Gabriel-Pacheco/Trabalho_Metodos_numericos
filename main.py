@@ -73,14 +73,14 @@ def main():
     n = NLinsPlaca * NColsPlaca
     b = np.ones(n) #vetor-mae para o lado direito (RHS)
 
-    #Q1 = createMatrixSimplesmenteApoiado(n, NLinsPlaca, NColsPlaca)
-    #Q1 = -Q1 # Para o gráfico ficar invertido
+    Q1 = createMatrixSimplesmenteApoiado(n, NLinsPlaca, NColsPlaca)
+    Q1 = -Q1 # Para o gráfico ficar invertido
     Q2 = createMatrixEngastado(n, NLinsPlaca, NColsPlaca)
     Q2 = -Q2 # Para o gráfico ficar invertido
 
-    solucao = Solving(Q2, b)  
-
-    showImage(solucao, NLinsPlaca, NColsPlaca)
-
+    solucao1 = Solving(Q1, b)  
+    solucao2 = Solving(Q2, b)  
+    showImage(solucao1, NLinsPlaca, NColsPlaca)
+    showImage(solucao2, NLinsPlaca, NColsPlaca)
 if __name__=="__main__":
     main()
