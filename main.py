@@ -17,7 +17,7 @@ def saveMatrixExcel(matrix, local): # o local deve ser o local onde vc deseja sa
     df=pd.DataFrame(matrix)
     df.to_excel(local, sheet_name="df")
 
-def showImage(theta, NumLinsPlaca, NumColsPlaca):
+def showImage(theta, NumLinsPlaca, NumColsPlaca, title):
     from mpl_toolkits import mplot3d
     import matplotlib.pyplot as plt
     plt.style.use('seaborn-poster')
@@ -43,7 +43,15 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     ax.set_ylabel('y', labelpad=20)
     ax.set_zlabel('z', labelpad=20)
 
+    fig.suptitle(title)
+
     fig.colorbar(surf, shrink=0.5, aspect=8)
+
+     # Plot 2D
+    fig2 = plt.figure()
+    ax1 = plt.contourf(X, Y, Z, cmap = plt.cm.cividis)
+    fig2.colorbar(surf)
+
     plt.show()
 
 def Solving(A,b):
@@ -66,8 +74,8 @@ def main():
     solucaoApoiado = Solving(Q1, b)  
     solucaoEngastado = Solving(Q2, b)  
     
-    showImage(solucaoApoiado, NLinsPlaca, NColsPlaca)
-    showImage(solucaoEngastado, NLinsPlaca, NColsPlaca)
+    showImage(solucaoApoiado, NLinsPlaca, NColsPlaca, "Placa Simplesmente Apoiada")
+    #showImage(solucaoEngastado, NLinsPlaca, NColsPlaca, "Placa Engastada")
 
     #saveMatrixExcel(solucaoApoiado, r'C:\Users\patri\Desktop\teste.xlsx')
     #saveMatrixExcel(solucaoEngastado, r'C:\Users\patri\Desktop\RespostaEngastado.xlsx')
