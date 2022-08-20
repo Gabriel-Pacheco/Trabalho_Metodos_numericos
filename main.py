@@ -43,8 +43,6 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca):
     ax.set_ylabel('y', labelpad=20)
     ax.set_zlabel('z', labelpad=20)
 
-
-
     fig.colorbar(surf, shrink=0.5, aspect=8)
     plt.show()
 
