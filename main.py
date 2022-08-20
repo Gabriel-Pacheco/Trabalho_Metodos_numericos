@@ -50,6 +50,7 @@ def showImage(theta, NumLinsPlaca, NumColsPlaca, title):
      # Plot 2D
     fig2 = plt.figure()
     ax1 = plt.contourf(X, Y, Z, cmap = plt.cm.cividis)
+    fig2.suptitle(title)
     fig2.colorbar(surf)
 
     plt.show()
